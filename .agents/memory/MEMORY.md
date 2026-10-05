@@ -1,0 +1,1 @@
+- [Instructor access provisioning](instructor-access.md) — only Mahmoud's formally verified account may manage student records; keep student data server-side.

@@ -23,6 +23,19 @@ export type Course = {
   topics: string[];
 };
 
+export type CourseId = "fundamentals" | "reactors" | "safety";
+
+// Public prices are managed here so every Arabic and English surface stays in sync.
+export const COURSE_PRICES: Record<CourseId, number> = {
+  fundamentals: 99,
+  reactors: 149,
+  safety: 199,
+};
+
+export function getCoursePrice(id: string) {
+  return COURSE_PRICES[id as CourseId];
+}
+
 export const COURSES: Course[] = [
   {
     id: "fundamentals",
@@ -33,7 +46,12 @@ export const COURSES: Course[] = [
     desc: "من الذرة والنظائر إلى أنواع الاضمحلال — نقطة البداية لأي طالب يدخل المجال.",
     duration: "٨ أسابيع",
     mode: "أونلاين مباشر",
-    topics: ["بنية النواة وطاقة الربط", "النظائر واستقرارها", "اضمحلال ألفا وبيتا وجاما", "عمر النصف وحسابات النشاط"],
+    topics: [
+      "بنية النواة وطاقة الربط",
+      "النظائر واستقرارها",
+      "اضمحلال ألفا وبيتا وجاما",
+      "عمر النصف وحسابات النشاط",
+    ],
   },
   {
     id: "reactors",
@@ -55,7 +73,12 @@ export const COURSES: Course[] = [
     desc: "إدارة المخاطر الإشعاعية، قياس النشاط، والتطبيقات الطبية والصناعية.",
     duration: "٤ أسابيع",
     mode: "أونلاين / حضوري",
-    topics: ["وحدات الجرعة والقياس", "مبادئ الحماية الإشعاعية", "النظائر في الطب والصناعة", "إدارة النفايات المشعة"],
+    topics: [
+      "وحدات الجرعة والقياس",
+      "مبادئ الحماية الإشعاعية",
+      "النظائر في الطب والصناعة",
+      "إدارة النفايات المشعة",
+    ],
   },
 ];
 
@@ -74,7 +97,12 @@ export const COURSES_EN: Course[] = [
     desc: "From atoms and isotopes to decay modes — the starting point for anyone entering the field.",
     duration: "8 weeks",
     mode: "Live online",
-    topics: ["Nuclear structure & binding energy", "Isotopes and stability", "Alpha, beta & gamma decay", "Half-life and activity calculations"],
+    topics: [
+      "Nuclear structure & binding energy",
+      "Isotopes and stability",
+      "Alpha, beta & gamma decay",
+      "Half-life and activity calculations",
+    ],
   },
   {
     id: "reactors",
@@ -96,7 +124,12 @@ export const COURSES_EN: Course[] = [
     desc: "Radiological risk management, activity measurement, and medical & industrial applications.",
     duration: "4 weeks",
     mode: "Online / in person",
-    topics: ["Dose units and measurement", "Radiation protection principles", "Isotopes in medicine & industry", "Radioactive waste management"],
+    topics: [
+      "Dose units and measurement",
+      "Radiation protection principles",
+      "Isotopes in medicine & industry",
+      "Radioactive waste management",
+    ],
   },
 ];
 
