@@ -14,11 +14,16 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as BookingRouteImport } from './routes/booking'
 import { Route as CoursesRouteImport } from './routes/courses'
 import { Route as PlacementRouteImport } from './routes/placement'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ArticlesIndexRouteImport } from './routes/articles.index'
+import { Route as ArticlesSlugRouteImport } from './routes/articles.$slug'
 import { Route as EnIndexRouteImport } from './routes/en/index'
 import { Route as EnAboutRouteImport } from './routes/en/about'
 import { Route as EnBookingRouteImport } from './routes/en/booking'
 import { Route as EnCoursesRouteImport } from './routes/en/courses'
 import { Route as EnPlacementRouteImport } from './routes/en/placement'
+import { Route as EnArticlesIndexRouteImport } from './routes/en/articles.index'
+import { Route as EnArticlesSlugRouteImport } from './routes/en/articles.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -43,6 +48,21 @@ const CoursesRoute = CoursesRouteImport.update({
 const PlacementRoute = PlacementRouteImport.update({
   id: '/placement',
   path: '/placement',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArticlesIndexRoute = ArticlesIndexRouteImport.update({
+  id: '/articles/',
+  path: '/articles/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArticlesSlugRoute = ArticlesSlugRouteImport.update({
+  id: '/articles/$slug',
+  path: '/articles/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EnIndexRoute = EnIndexRouteImport.update({
@@ -70,6 +90,16 @@ const EnPlacementRoute = EnPlacementRouteImport.update({
   path: '/en/placement',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnArticlesIndexRoute = EnArticlesIndexRouteImport.update({
+  id: '/en/articles/',
+  path: '/en/articles/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnArticlesSlugRoute = EnArticlesSlugRouteImport.update({
+  id: '/en/articles/$slug',
+  path: '/en/articles/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -77,11 +107,16 @@ export interface FileRoutesByFullPath {
   '/booking': typeof BookingRoute
   '/courses': typeof CoursesRoute
   '/placement': typeof PlacementRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/articles/$slug': typeof ArticlesSlugRoute
   '/en/about': typeof EnAboutRoute
   '/en/booking': typeof EnBookingRoute
   '/en/courses': typeof EnCoursesRoute
   '/en/placement': typeof EnPlacementRoute
+  '/articles/': typeof ArticlesIndexRoute
   '/en/': typeof EnIndexRoute
+  '/en/articles/$slug': typeof EnArticlesSlugRoute
+  '/en/articles/': typeof EnArticlesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -89,11 +124,16 @@ export interface FileRoutesByTo {
   '/booking': typeof BookingRoute
   '/courses': typeof CoursesRoute
   '/placement': typeof PlacementRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/articles/$slug': typeof ArticlesSlugRoute
   '/en/about': typeof EnAboutRoute
   '/en/booking': typeof EnBookingRoute
   '/en/courses': typeof EnCoursesRoute
   '/en/placement': typeof EnPlacementRoute
+  '/articles': typeof ArticlesIndexRoute
   '/en': typeof EnIndexRoute
+  '/en/articles/$slug': typeof EnArticlesSlugRoute
+  '/en/articles': typeof EnArticlesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -102,11 +142,16 @@ export interface FileRoutesById {
   '/booking': typeof BookingRoute
   '/courses': typeof CoursesRoute
   '/placement': typeof PlacementRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/articles/$slug': typeof ArticlesSlugRoute
   '/en/about': typeof EnAboutRoute
   '/en/booking': typeof EnBookingRoute
   '/en/courses': typeof EnCoursesRoute
   '/en/placement': typeof EnPlacementRoute
+  '/articles/': typeof ArticlesIndexRoute
   '/en/': typeof EnIndexRoute
+  '/en/articles/$slug': typeof EnArticlesSlugRoute
+  '/en/articles/': typeof EnArticlesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -116,11 +161,16 @@ export interface FileRouteTypes {
     | '/booking'
     | '/courses'
     | '/placement'
+    | '/sitemap.xml'
+    | '/articles/$slug'
     | '/en/about'
     | '/en/booking'
     | '/en/courses'
     | '/en/placement'
+    | '/articles/'
     | '/en/'
+    | '/en/articles/$slug'
+    | '/en/articles/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -128,11 +178,16 @@ export interface FileRouteTypes {
     | '/booking'
     | '/courses'
     | '/placement'
+    | '/sitemap.xml'
+    | '/articles/$slug'
     | '/en/about'
     | '/en/booking'
     | '/en/courses'
     | '/en/placement'
+    | '/articles'
     | '/en'
+    | '/en/articles/$slug'
+    | '/en/articles'
   id:
     | '__root__'
     | '/'
@@ -140,11 +195,16 @@ export interface FileRouteTypes {
     | '/booking'
     | '/courses'
     | '/placement'
+    | '/sitemap.xml'
+    | '/articles/$slug'
     | '/en/about'
     | '/en/booking'
     | '/en/courses'
     | '/en/placement'
+    | '/articles/'
     | '/en/'
+    | '/en/articles/$slug'
+    | '/en/articles/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -153,11 +213,16 @@ export interface RootRouteChildren {
   BookingRoute: typeof BookingRoute
   CoursesRoute: typeof CoursesRoute
   PlacementRoute: typeof PlacementRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  ArticlesSlugRoute: typeof ArticlesSlugRoute
   EnAboutRoute: typeof EnAboutRoute
   EnBookingRoute: typeof EnBookingRoute
   EnCoursesRoute: typeof EnCoursesRoute
   EnPlacementRoute: typeof EnPlacementRoute
+  ArticlesIndexRoute: typeof ArticlesIndexRoute
   EnIndexRoute: typeof EnIndexRoute
+  EnArticlesSlugRoute: typeof EnArticlesSlugRoute
+  EnArticlesIndexRoute: typeof EnArticlesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -197,6 +262,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlacementRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/articles/': {
+      id: '/articles/'
+      path: '/articles'
+      fullPath: '/articles/'
+      preLoaderRoute: typeof ArticlesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/articles/$slug': {
+      id: '/articles/$slug'
+      path: '/articles/$slug'
+      fullPath: '/articles/$slug'
+      preLoaderRoute: typeof ArticlesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/en/': {
       id: '/en/'
       path: '/en'
@@ -232,6 +318,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnPlacementRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/en/articles/': {
+      id: '/en/articles/'
+      path: '/en/articles'
+      fullPath: '/en/articles/'
+      preLoaderRoute: typeof EnArticlesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/articles/$slug': {
+      id: '/en/articles/$slug'
+      path: '/en/articles/$slug'
+      fullPath: '/en/articles/$slug'
+      preLoaderRoute: typeof EnArticlesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -241,11 +341,16 @@ const rootRouteChildren: RootRouteChildren = {
   BookingRoute: BookingRoute,
   CoursesRoute: CoursesRoute,
   PlacementRoute: PlacementRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
+  ArticlesSlugRoute: ArticlesSlugRoute,
   EnAboutRoute: EnAboutRoute,
   EnBookingRoute: EnBookingRoute,
   EnCoursesRoute: EnCoursesRoute,
   EnPlacementRoute: EnPlacementRoute,
+  ArticlesIndexRoute: ArticlesIndexRoute,
   EnIndexRoute: EnIndexRoute,
+  EnArticlesSlugRoute: EnArticlesSlugRoute,
+  EnArticlesIndexRoute: EnArticlesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
