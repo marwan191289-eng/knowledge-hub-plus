@@ -13,6 +13,8 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader, SiteFooter, WhatsAppFab } from "@/components/SiteHeader";
+import { useRouterState } from "@tanstack/react-router";
+import { langFromPath } from "@/lib/i18n";
 
 function NotFoundComponent() {
   return (
@@ -76,8 +78,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const lang = langFromPath(pathname);
   return (
-    <html lang="ar" dir="rtl">
+    <html lang={lang} dir={lang === "en" ? "ltr" : "rtl"}>
       <head>
         <HeadContent />
       </head>

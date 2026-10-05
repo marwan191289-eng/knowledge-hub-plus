@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import type { Course } from "@/lib/site";
 
-export function CourseCard({ c }: { c: Course }) {
+export function CourseCard({ c, lang = "ar" }: { c: Course; lang?: "ar" | "en" }) {
+  const en = lang === "en";
   return (
     <div className="group flex flex-col rounded-2xl border border-border bg-panel/60 p-6 transition hover:border-primary/50">
       <div className="mb-6 flex items-center justify-between">
@@ -12,7 +13,11 @@ export function CourseCard({ c }: { c: Course }) {
       <p className="mb-6 flex-1 text-[14px] leading-relaxed text-muted-foreground">{c.desc}</p>
       <div className="flex items-center justify-between border-t border-border/70 pt-5 text-[13px] text-dim">
         <span>{c.duration} · {c.mode}</span>
-        <Link to="/booking" search={{ course: c.id }} className="font-medium text-primary">سجّل الآن</Link>
+        {en ? (
+          <Link to="/en/booking" search={{ course: c.id }} className="font-medium text-primary">Enroll</Link>
+        ) : (
+          <Link to="/booking" search={{ course: c.id }} className="font-medium text-primary">سجّل الآن</Link>
+        )}
       </div>
     </div>
   );
