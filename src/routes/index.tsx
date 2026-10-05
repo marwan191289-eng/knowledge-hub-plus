@@ -1,8 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import reactor from "@/assets/nuclear-reactors.jpg";
-import instructor from "@/assets/instructor.jpg";
+import instructor from "@/assets/mahmoud-lab-coat.png";
 import { COURSES, SITE, waLink } from "@/lib/site";
 import { CourseCard } from "@/components/CourseCard";
+import { getRegisteredAccountCount } from "@/lib/auth.functions";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -18,13 +19,16 @@ export const Route = createFileRoute("/")({
         property: "og:description",
         content: "الكيمياء النووية بوضوح وبعمق حقيقي — دورات ودروس خاصة أونلاين.",
       },
+      { property: "og:image", content: "/og-image.jpg" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "/og-image.jpg" },
     ],
   }),
+  loader: () => getRegisteredAccountCount(),
   component: Index,
 });
 
 const STATS = [
-  { v: "+500", l: "طالب وطالبة", tone: "text-primary" },
   { v: "12", l: "دورة متخصصة", tone: "text-foreground" },
   { v: "98%", l: "نسبة الرضا", tone: "text-foreground" },
   { v: "5+", l: "سنوات خبرة", tone: "text-accent" },
@@ -37,6 +41,19 @@ const STEPS = [
 ];
 
 function Index() {
+  const registeredAccountCount = Route.useLoaderData();
+  const stats = [
+    {
+      v:
+        registeredAccountCount === null
+          ? "—"
+          : `+${registeredAccountCount.toLocaleString("ar-SA")}`,
+      l: "حساباً مسجلاً",
+      tone: "text-primary",
+    },
+    ...STATS,
+  ];
+
   return (
     <>
       <section className="mx-auto max-w-[1240px] px-6 pt-12 pb-16 lg:px-10 lg:pt-20">
@@ -143,8 +160,8 @@ function Index() {
               <img
                 src={instructor}
                 alt={SITE.title}
-                width={912}
-                height={1104}
+                width={1024}
+                height={1024}
                 loading="lazy"
                 className="aspect-[3/4] w-full object-cover"
               />

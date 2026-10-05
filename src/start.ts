@@ -1,4 +1,6 @@
 import { createStart, createCsrfMiddleware, createMiddleware } from "@tanstack/react-start";
+import { clerkMiddleware } from "@clerk/tanstack-react-start/server";
+import { publishableKeyFromHost } from "@clerk/react/internal";
 
 import { renderErrorPage } from "./lib/error-page";
 
@@ -25,5 +27,22 @@ const csrfMiddleware = createCsrfMiddleware({
 });
 
 export const startInstance = createStart(() => ({
-  requestMiddleware: [errorMiddleware, csrfMiddleware],
+  requestMiddleware: [
+    errorMiddleware,
+    clerkMiddleware(({ url }) => {
+      const secretKey = process.env["CLERK_SECRET_KEY"];
+      const proxyUrl = process.env["VITE_CLERK_PROXY_URL"];
+      return {
+        publishableKey: publishableKeyFromHost(
+          url.hostname,
+          process.env["CLERK_PUBLISHABLE_KEY"],
+        ),
+        ...(secretKey ? { secretKey } : {}),
+        ...(proxyUrl ? { proxyUrl } : {}),
+        signInUrl: "/sign-in",
+        signUpUrl: "/sign-up",
+      };
+    }),
+    csrfMiddleware,
+  ],
 }));

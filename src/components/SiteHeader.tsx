@@ -1,6 +1,7 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { SITE, SITE_EN } from "@/lib/site";
 import { langFromPath, switchPath } from "@/lib/i18n";
+import { useClerk, useUser } from "@clerk/tanstack-react-start";
 
 const NAV = {
   ar: [
@@ -30,11 +31,13 @@ export function SiteHeader() {
   const lang = langFromPath(path);
   const nav = NAV[lang];
   const en = lang === "en";
+  const { isLoaded, isSignedIn, user } = useUser();
+  const { signOut } = useClerk();
   return (
     <header className="relative z-10 border-b border-border/70">
       <div className="mx-auto flex h-20 max-w-[1240px] items-center justify-between gap-4 px-6 lg:px-10">
         <Link to={en ? "/en" : "/"} className="flex items-center gap-3">
-          <div className="grid size-10 place-items-center rounded-lg border border-primary/40 font-display text-lg font-bold text-primary">{en ? "M" : "م"}</div>
+          <img src="/logo.svg" alt="" width={42} height={42} className="size-10" />
           <div className="leading-tight">
             <div className="text-[15px] font-semibold">{en ? SITE_EN.name : SITE.name}</div>
             <div className="font-display text-[10px] uppercase tracking-[0.22em] text-primary/80">NUCLEAR CHEMISTRY</div>
@@ -54,12 +57,54 @@ export function SiteHeader() {
           <Link to={en ? "/en/booking" : "/booking"} className="hidden items-center rounded-full border border-primary/50 bg-primary/5 px-5 py-2 text-[13px] font-medium text-primary transition hover:bg-primary/10 sm:inline-flex">
             {en ? "Book a session" : "احجز جلسة"}
           </Link>
+          {isLoaded && isSignedIn ? (
+            <div className="flex items-center gap-2">
+              <Link
+                to={en ? "/en/dashboard" : "/dashboard"}
+                className="hidden items-center rounded-full border border-border px-4 py-2 text-[13px] text-foreground transition hover:border-primary/60 hover:text-primary sm:inline-flex"
+              >
+                {en ? "My account" : "حسابي"}
+              </Link>
+              <span
+                aria-label={user?.fullName ?? (en ? "Signed-in user" : "مستخدم مسجل")}
+                title={user?.fullName ?? ""}
+                className="grid size-9 place-items-center rounded-full border border-primary/50 bg-primary/10 text-sm font-semibold text-primary"
+              >
+                {user?.firstName?.slice(0, 1) ?? (en ? "U" : "ط")}
+              </span>
+              <button
+                type="button"
+                onClick={() => void signOut({ redirectUrl: en ? "/en" : "/" })}
+                className="rounded-full border border-border px-3 py-2 text-[12px] text-muted-foreground transition hover:border-accent/50 hover:text-accent"
+              >
+                {en ? "Sign out" : "خروج"}
+              </button>
+            </div>
+          ) : isLoaded ? (
+            <div className="flex items-center gap-2">
+              <Link
+                to={en ? "/en/sign-in" : "/sign-in"}
+                className="rounded-full border border-border px-3 py-2 text-[12px] text-muted-foreground transition hover:border-primary/50 hover:text-primary"
+              >
+                {en ? "Sign in" : "دخول"}
+              </Link>
+              <Link
+                to={en ? "/en/sign-up" : "/sign-up"}
+                className="hidden rounded-full bg-primary px-4 py-2 text-[12px] font-semibold text-primary-foreground transition hover:brightness-110 sm:inline-flex"
+              >
+                {en ? "Create account" : "إنشاء حساب"}
+              </Link>
+            </div>
+          ) : null}
         </div>
       </div>
       <nav className="flex flex-wrap justify-center gap-x-5 gap-y-2 border-t border-border/50 px-4 py-3 text-[13px] text-muted-foreground lg:hidden">
         {nav.map((n) => (
           <Link key={n.to} to={n.to} activeProps={{ className: "text-primary" }} activeOptions={{ exact: n.to === "/" || n.to === "/en" }}>{n.label}</Link>
         ))}
+        <Link to={en ? "/en/sign-in" : "/sign-in"} className="text-primary">
+          {en ? "Account" : "حساب"}
+        </Link>
       </nav>
     </header>
   );
@@ -71,7 +116,7 @@ export function SiteFooter() {
     <footer className="relative z-10 border-t border-border/70">
       <div className="mx-auto flex max-w-[1240px] flex-col items-center justify-between gap-6 px-6 py-12 md:flex-row lg:px-10">
         <div className="flex items-center gap-3">
-          <div className="grid size-9 place-items-center rounded-lg border border-primary/40 font-display font-bold text-primary">{en ? "M" : "م"}</div>
+          <img src="/logo.svg" alt="" width={36} height={36} className="size-9" />
           <div className="text-[14px] text-muted-foreground">{en ? `${SITE_EN.name} · Nuclear chemistry engineer` : `${SITE.name} · مهندس كيمياء نووية`}</div>
         </div>
         <div className="flex flex-wrap items-center justify-center gap-6 text-[13px] text-dim">

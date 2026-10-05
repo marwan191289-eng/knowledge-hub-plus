@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import instructor from "@/assets/instructor.jpg";
+import instructor from "@/assets/mahmoud-lab-coat.png";
 import { SITE_EN } from "@/lib/site";
 
 export const Route = createFileRoute("/en/about")({

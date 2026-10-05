@@ -13,7 +13,11 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as BookingRouteImport } from './routes/booking'
 import { Route as CoursesRouteImport } from './routes/courses'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as InstructorRouteImport } from './routes/instructor'
 import { Route as PlacementRouteImport } from './routes/placement'
+import { Route as SignInRouteImport } from './routes/sign-in'
+import { Route as SignUpRouteImport } from './routes/sign-up'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ArticlesIndexRouteImport } from './routes/articles.index'
 import { Route as ArticlesSlugRouteImport } from './routes/articles.$slug'
@@ -21,9 +25,17 @@ import { Route as EnIndexRouteImport } from './routes/en/index'
 import { Route as EnAboutRouteImport } from './routes/en/about'
 import { Route as EnBookingRouteImport } from './routes/en/booking'
 import { Route as EnCoursesRouteImport } from './routes/en/courses'
+import { Route as EnDashboardRouteImport } from './routes/en.dashboard'
+import { Route as EnInstructorRouteImport } from './routes/en.instructor'
 import { Route as EnPlacementRouteImport } from './routes/en/placement'
+import { Route as EnSignInRouteImport } from './routes/en.sign-in'
+import { Route as EnSignUpRouteImport } from './routes/en.sign-up'
+import { Route as SignInSplatRouteImport } from './routes/sign-in.$'
+import { Route as SignUpSplatRouteImport } from './routes/sign-up.$'
 import { Route as EnArticlesIndexRouteImport } from './routes/en/articles.index'
 import { Route as EnArticlesSlugRouteImport } from './routes/en/articles.$slug'
+import { Route as EnSignInSplatRouteImport } from './routes/en.sign-in.$'
+import { Route as EnSignUpSplatRouteImport } from './routes/en.sign-up.$'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -45,9 +57,29 @@ const CoursesRoute = CoursesRouteImport.update({
   path: '/courses',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InstructorRoute = InstructorRouteImport.update({
+  id: '/instructor',
+  path: '/instructor',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PlacementRoute = PlacementRouteImport.update({
   id: '/placement',
   path: '/placement',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignInRoute = SignInRouteImport.update({
+  id: '/sign-in',
+  path: '/sign-in',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignUpRoute = SignUpRouteImport.update({
+  id: '/sign-up',
+  path: '/sign-up',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -85,10 +117,40 @@ const EnCoursesRoute = EnCoursesRouteImport.update({
   path: '/en/courses',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnDashboardRoute = EnDashboardRouteImport.update({
+  id: '/en/dashboard',
+  path: '/en/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnInstructorRoute = EnInstructorRouteImport.update({
+  id: '/en/instructor',
+  path: '/en/instructor',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EnPlacementRoute = EnPlacementRouteImport.update({
   id: '/en/placement',
   path: '/en/placement',
   getParentRoute: () => rootRouteImport,
+} as any)
+const EnSignInRoute = EnSignInRouteImport.update({
+  id: '/en/sign-in',
+  path: '/en/sign-in',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnSignUpRoute = EnSignUpRouteImport.update({
+  id: '/en/sign-up',
+  path: '/en/sign-up',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignInSplatRoute = SignInSplatRouteImport.update({
+  id: '/$',
+  path: '/$',
+  getParentRoute: () => SignInRoute,
+} as any)
+const SignUpSplatRoute = SignUpSplatRouteImport.update({
+  id: '/$',
+  path: '/$',
+  getParentRoute: () => SignUpRoute,
 } as any)
 const EnArticlesIndexRoute = EnArticlesIndexRouteImport.update({
   id: '/en/articles/',
@@ -100,22 +162,44 @@ const EnArticlesSlugRoute = EnArticlesSlugRouteImport.update({
   path: '/en/articles/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnSignInSplatRoute = EnSignInSplatRouteImport.update({
+  id: '/$',
+  path: '/$',
+  getParentRoute: () => EnSignInRoute,
+} as any)
+const EnSignUpSplatRoute = EnSignUpSplatRouteImport.update({
+  id: '/$',
+  path: '/$',
+  getParentRoute: () => EnSignUpRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/booking': typeof BookingRoute
   '/courses': typeof CoursesRoute
+  '/dashboard': typeof DashboardRoute
+  '/instructor': typeof InstructorRoute
   '/placement': typeof PlacementRoute
+  '/sign-in': typeof SignInRouteWithChildren
+  '/sign-up': typeof SignUpRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/articles/$slug': typeof ArticlesSlugRoute
   '/en/about': typeof EnAboutRoute
   '/en/booking': typeof EnBookingRoute
   '/en/courses': typeof EnCoursesRoute
+  '/en/dashboard': typeof EnDashboardRoute
+  '/en/instructor': typeof EnInstructorRoute
   '/en/placement': typeof EnPlacementRoute
+  '/en/sign-in': typeof EnSignInRouteWithChildren
+  '/en/sign-up': typeof EnSignUpRouteWithChildren
+  '/sign-in/$': typeof SignInSplatRoute
+  '/sign-up/$': typeof SignUpSplatRoute
   '/articles/': typeof ArticlesIndexRoute
   '/en/': typeof EnIndexRoute
   '/en/articles/$slug': typeof EnArticlesSlugRoute
+  '/en/sign-in/$': typeof EnSignInSplatRoute
+  '/en/sign-up/$': typeof EnSignUpSplatRoute
   '/en/articles/': typeof EnArticlesIndexRoute
 }
 export interface FileRoutesByTo {
@@ -123,16 +207,28 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/booking': typeof BookingRoute
   '/courses': typeof CoursesRoute
+  '/dashboard': typeof DashboardRoute
+  '/instructor': typeof InstructorRoute
   '/placement': typeof PlacementRoute
+  '/sign-in': typeof SignInRouteWithChildren
+  '/sign-up': typeof SignUpRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/articles/$slug': typeof ArticlesSlugRoute
   '/en/about': typeof EnAboutRoute
   '/en/booking': typeof EnBookingRoute
   '/en/courses': typeof EnCoursesRoute
+  '/en/dashboard': typeof EnDashboardRoute
+  '/en/instructor': typeof EnInstructorRoute
   '/en/placement': typeof EnPlacementRoute
+  '/en/sign-in': typeof EnSignInRouteWithChildren
+  '/en/sign-up': typeof EnSignUpRouteWithChildren
+  '/sign-in/$': typeof SignInSplatRoute
+  '/sign-up/$': typeof SignUpSplatRoute
   '/articles': typeof ArticlesIndexRoute
   '/en': typeof EnIndexRoute
   '/en/articles/$slug': typeof EnArticlesSlugRoute
+  '/en/sign-in/$': typeof EnSignInSplatRoute
+  '/en/sign-up/$': typeof EnSignUpSplatRoute
   '/en/articles': typeof EnArticlesIndexRoute
 }
 export interface FileRoutesById {
@@ -141,16 +237,28 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/booking': typeof BookingRoute
   '/courses': typeof CoursesRoute
+  '/dashboard': typeof DashboardRoute
+  '/instructor': typeof InstructorRoute
   '/placement': typeof PlacementRoute
+  '/sign-in': typeof SignInRouteWithChildren
+  '/sign-up': typeof SignUpRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/articles/$slug': typeof ArticlesSlugRoute
   '/en/about': typeof EnAboutRoute
   '/en/booking': typeof EnBookingRoute
   '/en/courses': typeof EnCoursesRoute
+  '/en/dashboard': typeof EnDashboardRoute
+  '/en/instructor': typeof EnInstructorRoute
   '/en/placement': typeof EnPlacementRoute
+  '/en/sign-in': typeof EnSignInRouteWithChildren
+  '/en/sign-up': typeof EnSignUpRouteWithChildren
+  '/sign-in/$': typeof SignInSplatRoute
+  '/sign-up/$': typeof SignUpSplatRoute
   '/articles/': typeof ArticlesIndexRoute
   '/en/': typeof EnIndexRoute
   '/en/articles/$slug': typeof EnArticlesSlugRoute
+  '/en/sign-in/$': typeof EnSignInSplatRoute
+  '/en/sign-up/$': typeof EnSignUpSplatRoute
   '/en/articles/': typeof EnArticlesIndexRoute
 }
 export interface FileRouteTypes {
@@ -160,16 +268,28 @@ export interface FileRouteTypes {
     | '/about'
     | '/booking'
     | '/courses'
+    | '/dashboard'
+    | '/instructor'
     | '/placement'
+    | '/sign-in'
+    | '/sign-up'
     | '/sitemap.xml'
     | '/articles/$slug'
     | '/en/about'
     | '/en/booking'
     | '/en/courses'
+    | '/en/dashboard'
+    | '/en/instructor'
     | '/en/placement'
+    | '/en/sign-in'
+    | '/en/sign-up'
+    | '/sign-in/$'
+    | '/sign-up/$'
     | '/articles/'
     | '/en/'
     | '/en/articles/$slug'
+    | '/en/sign-in/$'
+    | '/en/sign-up/$'
     | '/en/articles/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -177,16 +297,28 @@ export interface FileRouteTypes {
     | '/about'
     | '/booking'
     | '/courses'
+    | '/dashboard'
+    | '/instructor'
     | '/placement'
+    | '/sign-in'
+    | '/sign-up'
     | '/sitemap.xml'
     | '/articles/$slug'
     | '/en/about'
     | '/en/booking'
     | '/en/courses'
+    | '/en/dashboard'
+    | '/en/instructor'
     | '/en/placement'
+    | '/en/sign-in'
+    | '/en/sign-up'
+    | '/sign-in/$'
+    | '/sign-up/$'
     | '/articles'
     | '/en'
     | '/en/articles/$slug'
+    | '/en/sign-in/$'
+    | '/en/sign-up/$'
     | '/en/articles'
   id:
     | '__root__'
@@ -194,16 +326,28 @@ export interface FileRouteTypes {
     | '/about'
     | '/booking'
     | '/courses'
+    | '/dashboard'
+    | '/instructor'
     | '/placement'
+    | '/sign-in'
+    | '/sign-up'
     | '/sitemap.xml'
     | '/articles/$slug'
     | '/en/about'
     | '/en/booking'
     | '/en/courses'
+    | '/en/dashboard'
+    | '/en/instructor'
     | '/en/placement'
+    | '/en/sign-in'
+    | '/en/sign-up'
+    | '/sign-in/$'
+    | '/sign-up/$'
     | '/articles/'
     | '/en/'
     | '/en/articles/$slug'
+    | '/en/sign-in/$'
+    | '/en/sign-up/$'
     | '/en/articles/'
   fileRoutesById: FileRoutesById
 }
@@ -212,13 +356,21 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   BookingRoute: typeof BookingRoute
   CoursesRoute: typeof CoursesRoute
+  DashboardRoute: typeof DashboardRoute
+  InstructorRoute: typeof InstructorRoute
   PlacementRoute: typeof PlacementRoute
+  SignInRoute: typeof SignInRouteWithChildren
+  SignUpRoute: typeof SignUpRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ArticlesSlugRoute: typeof ArticlesSlugRoute
   EnAboutRoute: typeof EnAboutRoute
   EnBookingRoute: typeof EnBookingRoute
   EnCoursesRoute: typeof EnCoursesRoute
+  EnDashboardRoute: typeof EnDashboardRoute
+  EnInstructorRoute: typeof EnInstructorRoute
   EnPlacementRoute: typeof EnPlacementRoute
+  EnSignInRoute: typeof EnSignInRouteWithChildren
+  EnSignUpRoute: typeof EnSignUpRouteWithChildren
   ArticlesIndexRoute: typeof ArticlesIndexRoute
   EnIndexRoute: typeof EnIndexRoute
   EnArticlesSlugRoute: typeof EnArticlesSlugRoute
@@ -255,11 +407,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CoursesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/instructor': {
+      id: '/instructor'
+      path: '/instructor'
+      fullPath: '/instructor'
+      preLoaderRoute: typeof InstructorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/placement': {
       id: '/placement'
       path: '/placement'
       fullPath: '/placement'
       preLoaderRoute: typeof PlacementRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sign-in': {
+      id: '/sign-in'
+      path: '/sign-in'
+      fullPath: '/sign-in'
+      preLoaderRoute: typeof SignInRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sign-up': {
+      id: '/sign-up'
+      path: '/sign-up'
+      fullPath: '/sign-up'
+      preLoaderRoute: typeof SignUpRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -311,12 +491,54 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnCoursesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/en/dashboard': {
+      id: '/en/dashboard'
+      path: '/en/dashboard'
+      fullPath: '/en/dashboard'
+      preLoaderRoute: typeof EnDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/instructor': {
+      id: '/en/instructor'
+      path: '/en/instructor'
+      fullPath: '/en/instructor'
+      preLoaderRoute: typeof EnInstructorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/en/placement': {
       id: '/en/placement'
       path: '/en/placement'
       fullPath: '/en/placement'
       preLoaderRoute: typeof EnPlacementRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/en/sign-in': {
+      id: '/en/sign-in'
+      path: '/en/sign-in'
+      fullPath: '/en/sign-in'
+      preLoaderRoute: typeof EnSignInRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/sign-up': {
+      id: '/en/sign-up'
+      path: '/en/sign-up'
+      fullPath: '/en/sign-up'
+      preLoaderRoute: typeof EnSignUpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sign-in/$': {
+      id: '/sign-in/$'
+      path: '/$'
+      fullPath: '/sign-in/$'
+      preLoaderRoute: typeof SignInSplatRouteImport
+      parentRoute: typeof SignInRoute
+    }
+    '/sign-up/$': {
+      id: '/sign-up/$'
+      path: '/$'
+      fullPath: '/sign-up/$'
+      preLoaderRoute: typeof SignUpSplatRouteImport
+      parentRoute: typeof SignUpRoute
     }
     '/en/articles/': {
       id: '/en/articles/'
@@ -332,21 +554,89 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnArticlesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/en/sign-in/$': {
+      id: '/en/sign-in/$'
+      path: '/$'
+      fullPath: '/en/sign-in/$'
+      preLoaderRoute: typeof EnSignInSplatRouteImport
+      parentRoute: typeof EnSignInRoute
+    }
+    '/en/sign-up/$': {
+      id: '/en/sign-up/$'
+      path: '/$'
+      fullPath: '/en/sign-up/$'
+      preLoaderRoute: typeof EnSignUpSplatRouteImport
+      parentRoute: typeof EnSignUpRoute
+    }
   }
 }
+
+interface SignInRouteChildren {
+  SignInSplatRoute: typeof SignInSplatRoute
+}
+
+const SignInRouteChildren: SignInRouteChildren = {
+  SignInSplatRoute: SignInSplatRoute,
+}
+
+const SignInRouteWithChildren =
+  SignInRoute._addFileChildren(SignInRouteChildren)
+
+interface SignUpRouteChildren {
+  SignUpSplatRoute: typeof SignUpSplatRoute
+}
+
+const SignUpRouteChildren: SignUpRouteChildren = {
+  SignUpSplatRoute: SignUpSplatRoute,
+}
+
+const SignUpRouteWithChildren =
+  SignUpRoute._addFileChildren(SignUpRouteChildren)
+
+interface EnSignInRouteChildren {
+  EnSignInSplatRoute: typeof EnSignInSplatRoute
+}
+
+const EnSignInRouteChildren: EnSignInRouteChildren = {
+  EnSignInSplatRoute: EnSignInSplatRoute,
+}
+
+const EnSignInRouteWithChildren = EnSignInRoute._addFileChildren(
+  EnSignInRouteChildren,
+)
+
+interface EnSignUpRouteChildren {
+  EnSignUpSplatRoute: typeof EnSignUpSplatRoute
+}
+
+const EnSignUpRouteChildren: EnSignUpRouteChildren = {
+  EnSignUpSplatRoute: EnSignUpSplatRoute,
+}
+
+const EnSignUpRouteWithChildren = EnSignUpRoute._addFileChildren(
+  EnSignUpRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   BookingRoute: BookingRoute,
   CoursesRoute: CoursesRoute,
+  DashboardRoute: DashboardRoute,
+  InstructorRoute: InstructorRoute,
   PlacementRoute: PlacementRoute,
+  SignInRoute: SignInRouteWithChildren,
+  SignUpRoute: SignUpRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ArticlesSlugRoute: ArticlesSlugRoute,
   EnAboutRoute: EnAboutRoute,
   EnBookingRoute: EnBookingRoute,
   EnCoursesRoute: EnCoursesRoute,
+  EnDashboardRoute: EnDashboardRoute,
+  EnInstructorRoute: EnInstructorRoute,
   EnPlacementRoute: EnPlacementRoute,
+  EnSignInRoute: EnSignInRouteWithChildren,
+  EnSignUpRoute: EnSignUpRouteWithChildren,
   ArticlesIndexRoute: ArticlesIndexRoute,
   EnIndexRoute: EnIndexRoute,
   EnArticlesSlugRoute: EnArticlesSlugRoute,
