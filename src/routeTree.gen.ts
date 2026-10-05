@@ -13,6 +13,10 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as BookingRouteImport } from './routes/booking'
 import { Route as CoursesRouteImport } from './routes/courses'
+import { Route as EnIndexRouteImport } from './routes/en/index'
+import { Route as EnAboutRouteImport } from './routes/en/about'
+import { Route as EnBookingRouteImport } from './routes/en/booking'
+import { Route as EnCoursesRouteImport } from './routes/en/courses'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -34,18 +38,46 @@ const CoursesRoute = CoursesRouteImport.update({
   path: '/courses',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnIndexRoute = EnIndexRouteImport.update({
+  id: '/en/',
+  path: '/en/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnAboutRoute = EnAboutRouteImport.update({
+  id: '/en/about',
+  path: '/en/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnBookingRoute = EnBookingRouteImport.update({
+  id: '/en/booking',
+  path: '/en/booking',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnCoursesRoute = EnCoursesRouteImport.update({
+  id: '/en/courses',
+  path: '/en/courses',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/booking': typeof BookingRoute
   '/courses': typeof CoursesRoute
+  '/en/about': typeof EnAboutRoute
+  '/en/booking': typeof EnBookingRoute
+  '/en/courses': typeof EnCoursesRoute
+  '/en/': typeof EnIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/booking': typeof BookingRoute
   '/courses': typeof CoursesRoute
+  '/en/about': typeof EnAboutRoute
+  '/en/booking': typeof EnBookingRoute
+  '/en/courses': typeof EnCoursesRoute
+  '/en': typeof EnIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +85,42 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/booking': typeof BookingRoute
   '/courses': typeof CoursesRoute
+  '/en/about': typeof EnAboutRoute
+  '/en/booking': typeof EnBookingRoute
+  '/en/courses': typeof EnCoursesRoute
+  '/en/': typeof EnIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/booking' | '/courses'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/booking'
+    | '/courses'
+    | '/en/about'
+    | '/en/booking'
+    | '/en/courses'
+    | '/en/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/booking' | '/courses'
-  id: '__root__' | '/' | '/about' | '/booking' | '/courses'
+  to:
+    | '/'
+    | '/about'
+    | '/booking'
+    | '/courses'
+    | '/en/about'
+    | '/en/booking'
+    | '/en/courses'
+    | '/en'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/booking'
+    | '/courses'
+    | '/en/about'
+    | '/en/booking'
+    | '/en/courses'
+    | '/en/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,6 +128,10 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   BookingRoute: typeof BookingRoute
   CoursesRoute: typeof CoursesRoute
+  EnAboutRoute: typeof EnAboutRoute
+  EnBookingRoute: typeof EnBookingRoute
+  EnCoursesRoute: typeof EnCoursesRoute
+  EnIndexRoute: typeof EnIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -99,6 +164,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CoursesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/en/': {
+      id: '/en/'
+      path: '/en'
+      fullPath: '/en/'
+      preLoaderRoute: typeof EnIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/about': {
+      id: '/en/about'
+      path: '/en/about'
+      fullPath: '/en/about'
+      preLoaderRoute: typeof EnAboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/booking': {
+      id: '/en/booking'
+      path: '/en/booking'
+      fullPath: '/en/booking'
+      preLoaderRoute: typeof EnBookingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/courses': {
+      id: '/en/courses'
+      path: '/en/courses'
+      fullPath: '/en/courses'
+      preLoaderRoute: typeof EnCoursesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -107,6 +200,10 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   BookingRoute: BookingRoute,
   CoursesRoute: CoursesRoute,
+  EnAboutRoute: EnAboutRoute,
+  EnBookingRoute: EnBookingRoute,
+  EnCoursesRoute: EnCoursesRoute,
+  EnIndexRoute: EnIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
