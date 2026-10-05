@@ -13,10 +13,12 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as BookingRouteImport } from './routes/booking'
 import { Route as CoursesRouteImport } from './routes/courses'
+import { Route as PlacementRouteImport } from './routes/placement'
 import { Route as EnIndexRouteImport } from './routes/en/index'
 import { Route as EnAboutRouteImport } from './routes/en/about'
 import { Route as EnBookingRouteImport } from './routes/en/booking'
 import { Route as EnCoursesRouteImport } from './routes/en/courses'
+import { Route as EnPlacementRouteImport } from './routes/en/placement'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -36,6 +38,11 @@ const BookingRoute = BookingRouteImport.update({
 const CoursesRoute = CoursesRouteImport.update({
   id: '/courses',
   path: '/courses',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlacementRoute = PlacementRouteImport.update({
+  id: '/placement',
+  path: '/placement',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EnIndexRoute = EnIndexRouteImport.update({
@@ -58,15 +65,22 @@ const EnCoursesRoute = EnCoursesRouteImport.update({
   path: '/en/courses',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnPlacementRoute = EnPlacementRouteImport.update({
+  id: '/en/placement',
+  path: '/en/placement',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/booking': typeof BookingRoute
   '/courses': typeof CoursesRoute
+  '/placement': typeof PlacementRoute
   '/en/about': typeof EnAboutRoute
   '/en/booking': typeof EnBookingRoute
   '/en/courses': typeof EnCoursesRoute
+  '/en/placement': typeof EnPlacementRoute
   '/en/': typeof EnIndexRoute
 }
 export interface FileRoutesByTo {
@@ -74,9 +88,11 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/booking': typeof BookingRoute
   '/courses': typeof CoursesRoute
+  '/placement': typeof PlacementRoute
   '/en/about': typeof EnAboutRoute
   '/en/booking': typeof EnBookingRoute
   '/en/courses': typeof EnCoursesRoute
+  '/en/placement': typeof EnPlacementRoute
   '/en': typeof EnIndexRoute
 }
 export interface FileRoutesById {
@@ -85,9 +101,11 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/booking': typeof BookingRoute
   '/courses': typeof CoursesRoute
+  '/placement': typeof PlacementRoute
   '/en/about': typeof EnAboutRoute
   '/en/booking': typeof EnBookingRoute
   '/en/courses': typeof EnCoursesRoute
+  '/en/placement': typeof EnPlacementRoute
   '/en/': typeof EnIndexRoute
 }
 export interface FileRouteTypes {
@@ -97,9 +115,11 @@ export interface FileRouteTypes {
     | '/about'
     | '/booking'
     | '/courses'
+    | '/placement'
     | '/en/about'
     | '/en/booking'
     | '/en/courses'
+    | '/en/placement'
     | '/en/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -107,9 +127,11 @@ export interface FileRouteTypes {
     | '/about'
     | '/booking'
     | '/courses'
+    | '/placement'
     | '/en/about'
     | '/en/booking'
     | '/en/courses'
+    | '/en/placement'
     | '/en'
   id:
     | '__root__'
@@ -117,9 +139,11 @@ export interface FileRouteTypes {
     | '/about'
     | '/booking'
     | '/courses'
+    | '/placement'
     | '/en/about'
     | '/en/booking'
     | '/en/courses'
+    | '/en/placement'
     | '/en/'
   fileRoutesById: FileRoutesById
 }
@@ -128,9 +152,11 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   BookingRoute: typeof BookingRoute
   CoursesRoute: typeof CoursesRoute
+  PlacementRoute: typeof PlacementRoute
   EnAboutRoute: typeof EnAboutRoute
   EnBookingRoute: typeof EnBookingRoute
   EnCoursesRoute: typeof EnCoursesRoute
+  EnPlacementRoute: typeof EnPlacementRoute
   EnIndexRoute: typeof EnIndexRoute
 }
 
@@ -164,6 +190,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CoursesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/placement': {
+      id: '/placement'
+      path: '/placement'
+      fullPath: '/placement'
+      preLoaderRoute: typeof PlacementRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/en/': {
       id: '/en/'
       path: '/en'
@@ -192,6 +225,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnCoursesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/en/placement': {
+      id: '/en/placement'
+      path: '/en/placement'
+      fullPath: '/en/placement'
+      preLoaderRoute: typeof EnPlacementRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -200,9 +240,11 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   BookingRoute: BookingRoute,
   CoursesRoute: CoursesRoute,
+  PlacementRoute: PlacementRoute,
   EnAboutRoute: EnAboutRoute,
   EnBookingRoute: EnBookingRoute,
   EnCoursesRoute: EnCoursesRoute,
+  EnPlacementRoute: EnPlacementRoute,
   EnIndexRoute: EnIndexRoute,
 }
 export const routeTree = rootRouteImport
